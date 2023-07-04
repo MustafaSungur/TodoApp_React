@@ -1,0 +1,38 @@
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+
+.input {
+  @apply border-s border-y py-1 h-9 border-blue-950 rounded-s outline-none p-1;
+}
+.btn {
+  @apply py-2 px-3 h-9 bg-blue-500 text-sm text-white rounded-e hover:bg-blue-400 border-e border-y border-blue-950;
+}
+.list-inline {
+  @apply cursor-pointer bg-indigo-800 p-3 rounded;
+}
+.list {
+  @apply flex flex-col gap-3 bg-indigo-600 h-80 p-4 overflow-auto rounded text-amber-50 z-20;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
