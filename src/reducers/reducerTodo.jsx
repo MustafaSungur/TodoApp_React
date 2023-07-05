@@ -10,29 +10,50 @@ const todoReducer = (state, action) => {
         ...state,
         todo: action.value,
       };
+
     case "ADD_TODO":
       return {
         ...state,
         todo: "",
         todos: [...state.todos, action.todo],
       };
-    case "DELETE":
-      return {
-        todos: [...state.todos].filter((todo) => todo.id !== action.id),
-      };
-    case "UPDATE":
-      console.log(action.id);
+
+    case "COPLATED":
       return {
         ...state,
-        todos: [...state.todos].map((todo) => {
-          if (todo.id !== action.payload.id) {
+        todos: state.todos.map((todo) => {
+          if (todo.id !== action.payload.todoId) {
             return todo;
           }
           return {
             ...todo,
-            content: action.payload.newTodo,
+            isComplated: action.payload.isChecked,
           };
         }),
+      };
+
+    case "DELETE":
+      return {
+        todos: [...state.todos].filter((todo) => todo.id !== action.id),
+      };
+
+    case "UPDATE":
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id !== action.payload.todoId) {
+            return todo;
+          }
+          return {
+            ...todo,
+            content: action.payload.newValue,
+          };
+        }),
+      };
+
+    case "DELETE_ALL":
+      return {
+        todos: [],
       };
   }
 };

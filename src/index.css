@@ -4,16 +4,37 @@
 @tailwind utilities;
 
 .input {
-  @apply border-s border-y py-1 h-9 border-blue-950 rounded-s outline-none p-1;
+  @apply border-s border-y py-1 h-9 border-slate-300 rounded-s outline-none p-1 bg-inherit w-full;
 }
 .btn {
-  @apply py-2 px-3 h-9 bg-blue-500 text-sm text-white rounded-e hover:bg-blue-400 border-e border-y border-blue-950;
+  @apply py-2 px-3 h-9 bg-blue-500 text-sm text-white rounded-e hover:bg-blue-600 border-e border-y border-blue-500  transition-all;
+}
+.btn-cancel {
+  @apply py-2 px-3 text-xs  bg-red-500 text-white rounded hover:bg-red-600 border-e border-y border-red-500  transition-all;
 }
 .list-inline {
-  @apply cursor-pointer bg-indigo-800 p-3 rounded;
+  @apply cursor-pointer text-zinc-800 border p-2 rounded;
 }
 .list {
-  @apply flex flex-col gap-3 bg-indigo-600 h-80 p-4 overflow-auto rounded text-amber-50 z-20;
+  @apply flex flex-col h-80 p-4 overflow-auto text-amber-50 z-20 w-full;
+}
+.form {
+  @apply z-0 flex;
+}
+.body {
+  height: 100vh;
+  background-image: url("./assets/bg6.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  align-items: center;
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* width */
@@ -35,4 +56,22 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.container input {
+  @apply hidden;
+}
+.container {
+  @apply flex gap-1 relative cursor-pointer  select-none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  @apply relative h-[1.3em] w-[1.3em] bg-[#2196f300] transition-all duration-[0.25s] rounded-[0.25em] left-0 top-[0.3rem] after:content-[""] after:absolute after:rotate-0 after:w-[1.05em] after:h-[1.05em] after:transition-all after:duration-[0.25s,border-width] after:delay-[0.1s] after:rounded-[0.25em] after:border-[0.1em] after:border-solid after:border-[black] after:left-0 after:top-0;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  @apply bg-[#2196f3] after:w-[0.25em] after:h-[0.5em] after:rotate-45 after:rounded-[0em] after:border-[#fff0_white_white_#fff0] after:border-[0_0.15em_0.15em_0] after:left-[0.50em] after:top-[0.30em];
 }

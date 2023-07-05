@@ -6,7 +6,7 @@ import todoReducer, { initialState } from "./reducers/reducerTodo";
 function App() {
   return (
     <TodoProvide todoReducer={todoReducer} initialState={initialState}>
-      <div>
+      <div className="body">
         <Form />
       </div>
     </TodoProvide>

@@ -4,53 +4,78 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useTodo } from "../context/todoContext";
 import { useState } from "react";
 
-const Todo = ({ todo, index }) => {
+const Todo = ({ todo }) => {
   const [{}, dispatch] = useTodo();
-  const [edit, setEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const [newTodo, setNewTodo] = useState(todo.content);
+
   const delete_todo = () => {
-    const isDelete = confirm("Item Silinecek");
-    if (isDelete) {
-      dispatch({
-        type: "DELETE",
-        id: todo.id,
-      });
-    }
+    dispatch({
+      type: "DELETE",
+      id: todo.id,
+    });
   };
-  const editTodo = (todoId) => {
-    if (!newTodo) {
-      dispatch({
-        type: "UPDATE",
-        payload: {
-          todoId,
-          newTodo,
-        },
-      });
-      setEdit(false);
-    }
+
+  const editTodo = (todoId, newValue) => {
+    dispatch({
+      type: "UPDATE",
+      payload: {
+        todoId,
+        newValue,
+      },
+    });
+    setIsEdit(false);
+    todo.isComplated = false;
+  };
+
+  const checked = ({ isChecked, todoId }) => {
+    dispatch({
+      type: "COPLATED",
+      payload: {
+        todoId,
+        isChecked,
+      },
+    });
   };
 
   return (
     <div className="flex justify-between w-full align-middle">
-      {(edit && (
+      {(isEdit && (
         <input
           type="text"
-          className="input text-zinc-950"
+          className="bg-inherit border outline-none w-full me-1 p-1"
           value={newTodo}
           onClick={(e) => e.target.focus()}
           onChange={(e) => setNewTodo(e.target.value)}
         />
       )) || (
-        <div>
-          {index + 1}) {todo.content}
-        </div>
+        <label className="container">
+          <input
+            type="checkbox"
+            onClick={(e) =>
+              checked({ isChecked: e.target.checked, todoId: todo.id })
+            }
+          />
+          <div className="checkmark"></div>
+          <p className={todo.isComplated ? "line-through" : ""}>
+            {todo.content}
+          </p>
+        </label>
       )}
-      <span className=" flex gap-2 mt-auto items-center">
-        {(edit && (
-          <FaCheckCircle className="text-xl" onClick={editTodo(todo.id)} />
-        )) || <BiPencil className="text-xl" onClick={() => setEdit(!edit)} />}
+      <span className=" flex gap-2 my-auto items-center">
+        {(isEdit && (
+          <FaCheckCircle
+            className="text-xl text-blue-500"
+            onClick={() => editTodo(todo.id, newTodo)}
+          />
+        )) || (
+          <BiPencil
+            className="text-xl text-blue-500"
+            onClick={() => setIsEdit(!isEdit)}
+          />
+        )}
 
-        <GiCancel className="text-xl" onClick={delete_todo} />
+        <GiCancel className="text-xl text-red-600" onClick={delete_todo} />
       </span>
     </div>
   );

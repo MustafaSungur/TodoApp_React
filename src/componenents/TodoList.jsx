@@ -3,22 +3,19 @@ import Todo from "./Todo";
 
 const TodoList = () => {
   const [{ todos }] = useTodo();
-
   return (
     <ul className="list">
-      {todos.map((todo, i) => (
-        <li
-          key={todo.id}
-          onClick={() => (todo.isComplated = !todo.isComplated)}
-          className={
-            todo.isComplated
-              ? "line-through  list-inline"
-              : "  underline list-inline"
-          }
-        >
-          <Todo todo={todo} index={i} />
+      {todos.lenght !== 0 ? (
+        todos.map((todo) => (
+          <li key={todo.id} className=" list-inline">
+            <Todo todo={todo} />
+          </li>
+        ))
+      ) : (
+        <li className="list-inline">
+          asdasd <p>Görev Listesi boş</p>
         </li>
-      ))}
+      )}
     </ul>
   );
 };

@@ -32,24 +32,33 @@ const Form = () => {
       value: e.target.value,
     });
   };
+  const deleteAll = () => {
+    dispatch({
+      type: "DELETE_ALL",
+    });
+  };
   return (
-    <div>
-      <div className="h-screen my-auto flex justify-center flex-col  text-center w-3/6  mx-auto ">
-        <form
-          onSubmit={submitHandle}
-          className=" top-20 mx-auto fixed bottom-2/3 left-1/2 -translate-x-1/2 z-0"
-        >
-          <input
-            type="text"
-            onChange={onChange}
-            className="input"
-            value={todo}
-            ref={inputRef}
-          />
-          <button disabled={!todo} type="submit" className="btn">
-            Ekle
+    <div className="mb-8 flex flex-col  w-3/4 mx-auto ">
+      <h1 className="p-2 text-xl font-thin">Todo App</h1>
+      <form onSubmit={submitHandle} className="form grid mb-3">
+        <input
+          type="text"
+          onChange={onChange}
+          className="input"
+          value={todo}
+          ref={inputRef}
+        />
+        <button disabled={!todo} type="submit" className="btn">
+          Ekle
+        </button>
+      </form>
+      <div className="border rounded backdrop-blur ">
+        <div className="flex justify-between border-b p-2">
+          <h1>todoapp</h1>
+          <button className="btn-cancel" onClick={deleteAll}>
+            Temizle
           </button>
-        </form>
+        </div>
         <TodoList />
       </div>
     </div>
